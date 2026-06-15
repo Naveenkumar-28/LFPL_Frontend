@@ -10,6 +10,8 @@ from typing import List, Optional, Literal
 import uuid
 from datetime import datetime, timezone
 
+from email_service import send_submission_email
+
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -87,6 +89,11 @@ async def create_submission(payload: SubmissionCreate):
     doc['created_at'] = doc['created_at'].isoformat()
     await db.submissions.insert_one(doc)
     logger.info(f"New submission: {obj.type} from {obj.email or obj.name}")
+    # Fire-and-forget email notification (does not block API response)
+    try:
+        await send_submission_email(doc)
+    except Exception as e:
+        logger.error(f"Email dispatch error (non-blocking): {e}")
     return obj
 
 
