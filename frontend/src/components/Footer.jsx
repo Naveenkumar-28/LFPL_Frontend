@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Package, MapPin, Phone, Mail, Linkedin, Instagram, Facebook, Youtube, ArrowUpRight } from "lucide-react";
 import { SITE } from "@/data/site";
-import { PRODUCTS } from "@/data/products";
+import { CATEGORIES } from "@/data/categories";
 
 export default function Footer() {
   return (
@@ -58,10 +58,10 @@ export default function Footer() {
           <div>
             <h4 className="text-xs uppercase tracking-widest text-white/40 mb-5">Products</h4>
             <ul className="space-y-3 text-sm">
-              {PRODUCTS.slice(0, 6).map((p) => (
-                <li key={p.id}>
-                  <Link to={`/products/${p.id}`} className="text-white/70 hover:text-[#ff6b00] transition-colors" data-testid={`footer-product-${p.id}`}>
-                    {p.name}
+              {CATEGORIES.slice(0, 6).map((c) => (
+                <li key={c.id}>
+                  <Link to={`/products/${c.id}`} className="text-white/70 hover:text-[#ff6b00] transition-colors" data-testid={`footer-product-${c.id}`}>
+                    {c.name}
                   </Link>
                 </li>
               ))}

@@ -14,13 +14,13 @@ export default function ProductCard({ product, index = 0 }) {
     >
       <div className="aspect-[4/5] overflow-hidden bg-[#0a0f25]">
         <img
-          src={product.images[0]}
+          src={product.image || product.images?.[0]}
           alt={product.name}
           loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
         />
         <div className="absolute top-4 left-4 px-2.5 py-1 bg-[#050816]/80 backdrop-blur text-[10px] uppercase tracking-widest text-white/80 border border-white/10">
-          {product.category}
+          {product.type || product.category}
         </div>
       </div>
       <div className="p-5 md:p-6">
@@ -31,7 +31,7 @@ export default function ProductCard({ product, index = 0 }) {
           {product.short}
         </p>
         <Link
-          to={`/products/${product.id}`}
+          to={`/products/${product.category}/${product.id}`}
           data-testid={`product-view-${product.id}`}
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-white group-hover:text-[#ff6b00] transition-colors"
         >

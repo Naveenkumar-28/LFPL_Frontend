@@ -1,195 +1,224 @@
-import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, X } from "lucide-react";
-import SectionHeader from "@/components/SectionHeader";
-import ProductCard from "@/components/ProductCard";
 import {
-  PRODUCTS, PRODUCT_CATEGORIES, PRODUCT_MATERIALS, PRODUCT_APPLICATIONS, PRODUCT_FEATURES_FILTER,
-} from "@/data/products";
+  ArrowUpRight, ArrowRight, ShieldCheck, Cog, Sparkles, Truck,
+  FileDown, Download, Layers,
+} from "lucide-react";
+import SectionHeader from "@/components/SectionHeader";
+import { CATEGORIES } from "@/data/categories";
 
-const PER_PAGE = 8;
+const FEATURES = [
+  { icon: ShieldCheck, title: "Premium Quality Assured", desc: "ISO 9001 + FSSAI compliant testing at every stage." },
+  { icon: Cog, title: "Advanced Technology", desc: "10-colour rotogravure & solvent-less lamination." },
+  { icon: Sparkles, title: "Custom Solutions", desc: "Bespoke structures, finishes and dielines." },
+  { icon: Truck, title: "Timely Delivery", desc: "On-time pan-India dispatch, every time." },
+];
 
 export default function Products() {
-  const [search, setSearch] = useState("");
-  const [cat, setCat] = useState("All");
-  const [mat, setMat] = useState("All");
-  const [app, setApp] = useState("All");
-  const [feat, setFeat] = useState([]);
-  const [sort, setSort] = useState("featured");
-  const [page, setPage] = useState(1);
-  const [filtersOpen, setFiltersOpen] = useState(false);
-
-  const filtered = useMemo(() => {
-    let list = PRODUCTS.filter((p) => {
-      if (search && !`${p.name} ${p.short}`.toLowerCase().includes(search.toLowerCase())) return false;
-      if (cat !== "All" && p.category !== cat) return false;
-      if (mat !== "All" && !p.material.toUpperCase().includes(mat.toUpperCase())) return false;
-      if (app !== "All" && !p.application.toLowerCase().includes(app.toLowerCase())) return false;
-      if (feat.length && !feat.every((f) => p.features.includes(f))) return false;
-      return true;
-    });
-    if (sort === "az") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
-    if (sort === "za") list = [...list].sort((a, b) => b.name.localeCompare(a.name));
-    return list;
-  }, [search, cat, mat, app, feat, sort]);
-
-  const pages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  const current = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
-
-  const reset = () => {
-    setSearch(""); setCat("All"); setMat("All"); setApp("All"); setFeat([]); setSort("featured"); setPage(1);
-  };
-
-  const Sidebar = (
-    <aside className="glass p-6 sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto" data-testid="products-sidebar">
-      <div className="flex items-center justify-between mb-5">
-        <h3 className="display text-lg font-bold flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-[#ff6b00]" /> Filters
-        </h3>
-        <button onClick={reset} className="text-xs text-white/40 hover:text-[#ff6b00]" data-testid="filters-reset">Reset</button>
-      </div>
-
-      <FilterGroup label="Category" options={PRODUCT_CATEGORIES} value={cat} onChange={(v) => { setCat(v); setPage(1); }} testid="filter-category" />
-      <FilterGroup label="Material" options={PRODUCT_MATERIALS} value={mat} onChange={(v) => { setMat(v); setPage(1); }} testid="filter-material" />
-      <FilterGroup label="Application" options={PRODUCT_APPLICATIONS} value={app} onChange={(v) => { setApp(v); setPage(1); }} testid="filter-application" />
-
-      <div className="mb-1">
-        <div className="text-xs uppercase tracking-widest text-white/40 mb-3">Features</div>
-        <div className="space-y-2">
-          {PRODUCT_FEATURES_FILTER.map((f) => (
-            <label key={f} className="flex items-center gap-2 text-sm cursor-pointer" data-testid={`filter-feature-${f.toLowerCase().replace(/\s+/g, "-")}`}>
-              <input
-                type="checkbox"
-                checked={feat.includes(f)}
-                onChange={(e) => {
-                  setFeat((cur) => (e.target.checked ? [...cur, f] : cur.filter((x) => x !== f)));
-                  setPage(1);
-                }}
-                className="accent-[#ff6b00] w-4 h-4"
-              />
-              <span className="text-white/75">{f}</span>
-            </label>
+  return (
+    <div data-testid="products-page" className="pt-[72px]">
+      {/* HERO */}
+      <section className="relative min-h-[88vh] flex items-center overflow-hidden">
+        {/* particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(28)].map((_, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: [0.15, 0.55, 0.15],
+                y: [0, -30, 0],
+                x: [0, (i % 2 ? 14 : -14), 0],
+              }}
+              transition={{ duration: 6 + (i % 5), repeat: Infinity, delay: i * 0.2, ease: "easeInOut" }}
+              className="absolute w-1 h-1 rounded-full"
+              style={{
+                left: `${(i * 37) % 100}%`,
+                top: `${(i * 53) % 100}%`,
+                background: i % 3 === 0 ? "#ff6b00" : "rgba(120, 180, 255, 0.55)",
+                boxShadow: i % 3 === 0 ? "0 0 8px #ff6b00" : "0 0 8px rgba(120,180,255,0.4)",
+              }}
+            />
           ))}
         </div>
-      </div>
-    </aside>
-  );
 
-  return (
-    <div data-testid="products-page" className="pt-24">
-      {/* HEADER */}
-      <section className="container-pad pt-12 pb-8">
-        <SectionHeader
-          eyebrow="Products"
-          title="Explore our complete range."
-          subtitle="Engineered laminates, pouches and rolls — designed for performance, sustainability and shelf appeal."
-        />
+        {/* light effects */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-[#1e3a8a] opacity-20 blur-3xl" />
+          <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-[#ff6b00] opacity-15 blur-3xl" />
+          <div className="absolute inset-0 bg-grid opacity-30" />
+        </div>
+
+        <div className="container-pad relative grid lg:grid-cols-2 gap-12 items-center py-20">
+          {/* LEFT */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-4 py-2 border border-white/10 text-xs uppercase tracking-widest text-white/70 mb-8"
+              data-testid="products-hero-badge"
+            >
+              <Layers className="w-3.5 h-3.5 text-[#ff6b00]" />
+              Catalogue 2026 · 6 categories · 60+ SKUs
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}
+              className="display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1] tracking-tight"
+            >
+              Our <span className="text-[#ff6b00]">Products</span>.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-white/65 text-lg mt-7 max-w-xl leading-relaxed"
+            >
+              Innovative packaging solutions engineered with precision, quality &amp; performance — across rolls, stand-up pouches, spout pouches and more.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35 }}
+              className="flex flex-col sm:flex-row gap-4 mt-10"
+            >
+              <Link to="/quote" className="btn-primary" data-testid="hero-request-catalogue-btn">
+                Request Catalogue <FileDown className="w-4 h-4" />
+              </Link>
+              <Link to="/contact" className="btn-secondary" data-testid="hero-download-brochure-btn">
+                Download Brochure <Download className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* RIGHT: 3D-ish floating roll mockup */}
+          <motion.div
+            initial={{ opacity: 0, x: 40, scale: 0.9 }} animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="relative h-[420px] md:h-[560px]"
+            data-testid="hero-3d-mockup"
+          >
+            <motion.div
+              animate={{ y: [0, -16, 0], rotate: [-2, 2, -2] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-0 grid place-items-center"
+            >
+              <div className="relative w-[80%] aspect-square">
+                <div className="absolute inset-0 rounded-full bg-[#ff6b00] opacity-25 blur-3xl" />
+                <div className="absolute inset-0 rounded-full bg-[#1e3a8a] opacity-20 blur-3xl translate-x-8 translate-y-8" />
+                <img
+                  src="https://images.unsplash.com/photo-1607082352121-fa243f3dde32?auto=format&fit=crop&q=80&w=1200"
+                  alt="packaging roll"
+                  className="relative w-full h-full object-cover rounded-2xl shadow-2xl shadow-[#ff6b00]/30 border border-white/10"
+                  style={{ transform: "perspective(900px) rotateY(-12deg) rotateX(8deg)" }}
+                />
+              </div>
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, 12, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-8 right-4 glass-strong px-4 py-3 hidden md:block"
+            >
+              <div className="text-[10px] uppercase tracking-widest text-white/50">Rotogravure</div>
+              <div className="text-sm font-bold mt-1">10-colour print</div>
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute bottom-12 left-2 glass-strong px-4 py-3 hidden md:block"
+            >
+              <div className="text-[10px] uppercase tracking-widest text-white/50">Barrier</div>
+              <div className="text-sm font-bold mt-1 text-[#ff6b00]">High OTR + WVTR</div>
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* TOOLBAR */}
-      <div className="container-pad mb-8">
-        <div className="flex flex-col md:flex-row gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={search}
-              data-testid="products-search"
-              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-              className="w-full bg-[#0a0f25]/60 border border-white/10 pl-12 pr-4 py-3 text-sm placeholder:text-white/30 focus:border-[#ff6b00] focus:outline-none"
-            />
+      {/* CATEGORIES GRID */}
+      <section className="section-pad">
+        <div className="container-pad">
+          <SectionHeader
+            eyebrow="Categories"
+            title="Six categories. Endless possibilities."
+            subtitle="Explore Lombodaran's complete packaging range — engineered for every shelf, every brand and every budget."
+            testid="categories-header"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {CATEGORIES.map((c, i) => (
+              <motion.div
+                key={c.id}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.07 }}
+                data-testid={`category-card-${c.id}`}
+                className="group relative bg-white/[0.02] border border-white/[0.06] hover:border-[#ff6b00] transition-all duration-300"
+              >
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <img src={c.image} alt={c.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050816] via-transparent to-transparent" />
+                </div>
+                <div className="p-6">
+                  <h3 className="display text-xl md:text-2xl font-bold mb-2 group-hover:text-[#ff6b00] transition-colors">{c.name}</h3>
+                  <p className="text-sm text-white/55 line-clamp-2 mb-6 min-h-[2.5rem]">{c.short}</p>
+                  <Link
+                    to={`/products/${c.id}`}
+                    data-testid={`category-explore-${c.id}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold border-b border-[#ff6b00] pb-1 hover:gap-3 transition-all"
+                  >
+                    Explore <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
           </div>
-          <select
-            value={sort}
-            data-testid="products-sort"
-            onChange={(e) => setSort(e.target.value)}
-            className="bg-[#0a0f25]/60 border border-white/10 px-4 py-3 text-sm focus:border-[#ff6b00] focus:outline-none"
-          >
-            <option value="featured">Featured</option>
-            <option value="az">Name: A–Z</option>
-            <option value="za">Name: Z–A</option>
-          </select>
-          <button
-            onClick={() => setFiltersOpen(!filtersOpen)}
-            data-testid="mobile-filters-toggle"
-            className="lg:hidden btn-secondary"
-          >
-            <SlidersHorizontal className="w-4 h-4" /> Filters
-          </button>
         </div>
-      </div>
+      </section>
 
-      <div className="container-pad pb-24 grid lg:grid-cols-[280px_1fr] gap-8">
-        <div className="hidden lg:block">{Sidebar}</div>
-        {filtersOpen && (
-          <div className="lg:hidden fixed inset-0 z-50 bg-[#050816]/95 backdrop-blur-xl p-6 overflow-y-auto" data-testid="mobile-filters-panel">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="display text-xl font-bold">Filters</h3>
-              <button onClick={() => setFiltersOpen(false)} data-testid="mobile-filters-close"><X /></button>
-            </div>
-            {Sidebar}
-          </div>
-        )}
-
-        <div>
-          <div className="text-sm text-white/50 mb-4" data-testid="products-count">
-            {filtered.length} products
-          </div>
-          {current.length === 0 ? (
-            <div className="glass p-12 text-center text-white/60" data-testid="no-products">
-              No products match your filters. Try resetting.
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-testid="products-grid">
-              {current.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
-            </div>
-          )}
-
-          {pages > 1 && (
-            <div className="flex justify-center gap-2 mt-12" data-testid="pagination">
-              {Array.from({ length: pages }).map((_, i) => (
-                <button
-                  key={i}
-                  data-testid={`page-${i + 1}`}
-                  onClick={() => setPage(i + 1)}
-                  className={`w-10 h-10 border text-sm font-semibold transition-colors ${
-                    page === i + 1
-                      ? "bg-[#ff6b00] border-[#ff6b00] text-white"
-                      : "border-white/10 text-white/70 hover:border-[#ff6b00]"
-                  }`}
-                >
-                  {i + 1}
-                </button>
-              ))}
-            </div>
-          )}
+      {/* FEATURES BAR */}
+      <section className="container-pad py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {FEATURES.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+              className="glass p-6 group hover:border-[#ff6b00]/50 transition-colors relative overflow-hidden"
+              data-testid={`feature-bar-${i}`}
+            >
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#ff6b00] opacity-0 group-hover:opacity-10 blur-2xl transition-opacity" />
+              <div className="w-12 h-12 grid place-items-center bg-[#ff6b00]/10 text-[#ff6b00] border border-[#ff6b00]/30 mb-5 group-hover:bg-[#ff6b00] group-hover:text-white transition-colors shadow-[0_0_24px_rgba(255,107,0,0.25)]">
+                <f.icon className="w-5 h-5" />
+              </div>
+              <h3 className="display text-base font-bold mb-2">{f.title}</h3>
+              <p className="text-xs text-white/55 leading-relaxed">{f.desc}</p>
+            </motion.div>
+          ))}
         </div>
-      </div>
-    </div>
-  );
-}
+      </section>
 
-function FilterGroup({ label, options, value, onChange, testid }) {
-  return (
-    <div className="mb-6">
-      <div className="text-xs uppercase tracking-widest text-white/40 mb-3">{label}</div>
-      <div className="flex flex-wrap gap-1.5" data-testid={testid}>
-        {options.map((o) => (
-          <button
-            key={o}
-            onClick={() => onChange(o)}
-            data-testid={`${testid}-${o.toLowerCase().replace(/\s+/g, "-")}`}
-            className={`text-xs px-3 py-1.5 border transition-colors ${
-              value === o
-                ? "bg-[#ff6b00] border-[#ff6b00] text-white"
-                : "border-white/10 text-white/70 hover:border-white/30"
-            }`}
-          >
-            {o}
-          </button>
-        ))}
-      </div>
+      {/* CTA */}
+      <section className="container-pad py-20">
+        <div className="relative overflow-hidden glass-strong p-10 md:p-16">
+          {/* animated wave gradient */}
+          <motion.div
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 opacity-30"
+            style={{
+              background: "linear-gradient(120deg, #ff6b00 0%, #1e3a8a 25%, #050816 50%, #1e3a8a 75%, #ff6b00 100%)",
+              backgroundSize: "300% 300%",
+            }}
+          />
+          <div className="relative grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <div className="text-xs uppercase tracking-widest text-[#ff6b00] mb-4">Talk to us</div>
+              <h2 className="display text-3xl md:text-5xl font-bold leading-tight">
+                Looking for the right packaging solution<br />
+                for your <span className="text-[#ff6b00]">brand?</span>
+              </h2>
+            </div>
+            <div className="flex md:justify-end">
+              <Link to="/contact" className="btn-primary text-base" data-testid="cta-talk-experts">
+                Talk to our experts <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import MainLayout from "@/layouts/MainLayout";
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
+import ProductCategory from "@/pages/ProductCategory";
 import ProductDetails from "@/pages/ProductDetails";
 import Industries from "@/pages/Industries";
 import Infrastructure from "@/pages/Infrastructure";
@@ -29,7 +30,8 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/products/:slug" element={<ProductDetails />} />
+            <Route path="/products/:slug" element={<ProductCategory />} />
+            <Route path="/products/:category/:slug" element={<ProductDetails />} />
             <Route path="/industries" element={<Industries />} />
             <Route path="/infrastructure" element={<Infrastructure />} />
             <Route path="/quality" element={<Quality />} />
