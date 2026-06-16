@@ -1,7 +1,11 @@
-import { motion } from "framer-motion";
-import { Play, Cog, Layers, Package, FlaskConical } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Play, Cog, Layers, Package, FlaskConical, X } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import { INFRA_STATS } from "@/data/site";
+
+// YouTube video ID — replace with your own facility tour video
+const YOUTUBE_ID = "k_okcNVZqqI";
 
 const UNITS = [
   { icon: Cog, name: "Printing", desc: "10-colour rotogravure presses for high-resolution print." },
@@ -20,6 +24,7 @@ const GALLERY = [
 ];
 
 export default function Infrastructure() {
+  const [videoOpen, setVideoOpen] = useState(false);
   return (
     <div data-testid="infrastructure-page" className="pt-24 pb-24">
       {/* Banner */}
@@ -95,7 +100,11 @@ export default function Infrastructure() {
 
       {/* Video section */}
       <section className="container-pad py-16">
-        <div className="relative aspect-video overflow-hidden glass-strong group cursor-pointer" data-testid="video-section">
+        <div
+          onClick={() => setVideoOpen(true)}
+          className="relative aspect-video overflow-hidden glass-strong group cursor-pointer"
+          data-testid="video-section"
+        >
           <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2200" alt="video" className="absolute inset-0 w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 grid place-items-center">
             <div className="text-center">
@@ -108,6 +117,42 @@ export default function Infrastructure() {
           </div>
         </div>
       </section>
+
+      {/* YouTube Modal */}
+      <AnimatePresence>
+        {videoOpen && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] lightbox-overlay grid place-items-center p-4 md:p-8"
+            onClick={() => setVideoOpen(false)}
+            data-testid="video-modal"
+          >
+            <button
+              onClick={() => setVideoOpen(false)}
+              className="absolute top-6 right-6 w-12 h-12 grid place-items-center border border-white/20 text-white hover:bg-white/10 transition-colors z-10"
+              data-testid="video-modal-close"
+              aria-label="Close video"
+            >
+              <X />
+            </button>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-5xl aspect-video bg-black"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <iframe
+                src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0`}
+                title="Lombodaran Facility Tour"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+                data-testid="youtube-iframe"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
