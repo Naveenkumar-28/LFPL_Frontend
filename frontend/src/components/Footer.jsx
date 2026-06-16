@@ -101,12 +101,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      <div className="select-none overflow-hidden border-t border-white/[0.04]">
-        <div className="display text-[20vw] md:text-[18vw] leading-none font-black text-white/[0.03] tracking-tighter whitespace-nowrap text-center -mb-6 md:-mb-12">
-          LOMBODARAN
-        </div>
-      </div>
     </footer>
   );
 }

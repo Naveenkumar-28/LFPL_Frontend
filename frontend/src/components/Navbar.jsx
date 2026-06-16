@@ -34,9 +34,7 @@ export default function Navbar() {
   return (
     <header
       data-testid="site-navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#050816]/85 backdrop-blur-xl border-b border-white/[0.06]" : "bg-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#050816]/90 backdrop-blur-xl border-b border-white/[0.06]"
     >
       <div className="container-pad flex items-center justify-between h-[72px]">
         <Link to="/" data-testid="nav-logo" className="flex items-center gap-2 group">
