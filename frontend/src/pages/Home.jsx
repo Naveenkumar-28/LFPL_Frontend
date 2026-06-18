@@ -9,6 +9,7 @@ import {
 import SectionHeader from "@/components/SectionHeader";
 import ProductCard from "@/components/ProductCard";
 import QuickEnquiryForm from "@/components/QuickEnquiryForm";
+import ClientsMarquee from "@/components/ClientsMarquee";
 import { PRODUCTS } from "@/data/products";
 import { INDUSTRIES } from "@/data/industries";
 import { STATS, WHY_US, PROCESS_STEPS, SITE } from "@/data/site";
@@ -131,6 +132,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* OUR CLIENTS */}
+      <ClientsMarquee />
+
 
       {/* FEATURED PRODUCTS */}
       <section className="section-pad bg-gradient-to-b from-transparent via-[#0a0f25]/30 to-transparent">
