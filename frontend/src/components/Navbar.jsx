@@ -38,8 +38,8 @@ export default function Navbar() {
         scrolled ? "bg-[#050816]/85 backdrop-blur-xl border-b border-white/[0.06]" : "bg-transparent"
       }`}
     >
-      <div className="container-pad flex items-center justify-between h-[72px]">
-        <Link to="/" data-testid="nav-logo" className="flex items-center gap-2 group">
+      <div className="container-pad flex items-center justify-between gap-4 h-[72px]">
+        <Link to="/" data-testid="nav-logo" className="flex items-center gap-2 group shrink-0">
           <span className="w-9 h-9 grid place-items-center bg-[#ff6b00] text-white">
             <Package className="w-5 h-5" />
           </span>
@@ -48,7 +48,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1" onMouseLeave={() => setOpenMega(null)}>
+        <nav className="hidden lg:flex items-center gap-0 xl:gap-1" onMouseLeave={() => setOpenMega(null)}>
           {NAV_LINKS.map((l) => (
             <div
               key={l.to}
@@ -59,7 +59,7 @@ export default function Navbar() {
                 to={l.to}
                 data-testid={`nav-link-${l.label.toLowerCase()}`}
                 className={({ isActive }) =>
-                  `px-4 py-2 text-sm font-medium tracking-wide flex items-center gap-1 transition-colors ${
+                  `px-2.5 xl:px-4 py-2 text-[13px] xl:text-sm font-medium tracking-wide flex items-center gap-1 transition-colors whitespace-nowrap ${
                     isActive ? "text-[#ff6b00]" : "text-white/80 hover:text-white"
                   }`
                 }
@@ -71,13 +71,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center shrink-0">
           <Link
             to="/quote"
             data-testid="nav-get-quote-btn"
-            className="btn-primary text-sm"
+            className="inline-flex items-center gap-1.5 bg-[#ff6b00] hover:bg-[#e65a00] text-white font-semibold text-[13px] xl:text-sm px-4 xl:px-5 py-2.5 transition-all whitespace-nowrap shadow-[0_8px_24px_rgba(255,107,0,0.25)] hover:-translate-y-0.5"
           >
-            Get Quote <ArrowUpRight className="w-4 h-4" />
+            Get Quote <ArrowUpRight className="w-3.5 h-3.5 xl:w-4 xl:h-4" />
           </Link>
         </div>
 
