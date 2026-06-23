@@ -116,7 +116,7 @@ export default function Products() {
               className="absolute top-8 right-4 glass-strong px-4 py-3 hidden md:block"
             >
               <div className="text-[10px] uppercase tracking-widest text-white/50">Rotogravure</div>
-              <div className="text-sm font-bold mt-1">10-colour print</div>
+              <div className="text-sm font-bold mt-1">8-colour print</div>
             </motion.div>
             <motion.div
               animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}

@@ -214,14 +214,14 @@ export default function Home() {
                 alt="factory"
                 className="w-full h-full object-cover"
               />
-              <button className="absolute inset-0 grid place-items-center group" data-testid="infra-video-trigger">
+              {/* <button className="absolute inset-0 grid place-items-center group" data-testid="infra-video-trigger">
                 <span className="w-20 h-20 rounded-full bg-[#ff6b00] grid place-items-center group-hover:scale-110 transition-transform shadow-2xl shadow-[#ff6b00]/40">
                   <Play className="w-7 h-7 text-white ml-1" />
                 </span>
-              </button>
+              </button> */}
             </div>
             <div className="absolute -bottom-6 -right-6 glass-strong p-5 hidden md:block">
-              <div className="display text-4xl font-bold text-[#ff6b00]">50,000</div>
+              <div className="display text-4xl font-bold text-[#ff6b00]">10,000</div>
               <div className="text-xs uppercase tracking-widest text-white/60">Sq Ft Facility</div>
             </div>
           </div>
@@ -233,7 +233,7 @@ export default function Home() {
             />
             <ul className="space-y-3 mb-8">
               {[
-                "10+ production machines including 10-colour rotogravure",
+                "Production machines including 8-colour rotogravure",
                 "Solvent-less lamination for sustainability",
                 "Multi-format pouch making lines",
                 "In-house quality lab with OTR & WVTR testing",
@@ -295,7 +295,7 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className={`overflow-hidden ${i === 0 || i === 5 ? "row-span-2 aspect-square" : "aspect-square"}`}
+                className={`overflow-hidden ${i === 0 ? "md:row-span-2 md:col-span-2 aspect-square" : "aspect-square"}`}
               >
                 <img src={g.src} alt={g.alt} loading="lazy" className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
               </motion.div>

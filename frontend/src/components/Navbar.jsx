@@ -10,7 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/products", label: "Products", mega: "products" },
-  { to: "/industries", label: "Industries", mega: "industries" },
+  { to: "/industries", label: "Industries" },
   { to: "/infrastructure", label: "Infrastructure" },
   { to: "/quality", label: "Quality" },
   { to: "/gallery", label: "Gallery" },
@@ -34,9 +34,8 @@ export default function Navbar() {
   return (
     <header
       data-testid="site-navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-[#050816]/85 backdrop-blur-xl border-b border-white/[0.06]" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#050816]/85 backdrop-blur-xl border-b border-white/[0.06]" : "bg-transparent"
+        }`}
     >
       <div className="container-pad flex items-center justify-between gap-4 h-[72px]">
         <Link to="/" data-testid="nav-logo" className="flex items-center gap-2 group shrink-0">
@@ -59,8 +58,7 @@ export default function Navbar() {
                 to={l.to}
                 data-testid={`nav-link-${l.label.toLowerCase()}`}
                 className={({ isActive }) =>
-                  `px-2.5 xl:px-4 py-2 text-[13px] xl:text-sm font-medium tracking-wide flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    isActive ? "text-[#ff6b00]" : "text-white/80 hover:text-white"
+                  `px-2.5 xl:px-4 py-2 text-[13px] xl:text-sm font-medium tracking-wide flex items-center gap-1 transition-colors whitespace-nowrap ${isActive ? "text-[#ff6b00]" : "text-white/80 hover:text-white"
                   }`
                 }
               >
@@ -103,10 +101,9 @@ export default function Navbar() {
                   data-testid={`mobile-nav-${l.label.toLowerCase()}`}
                   onClick={() => setMobileOpen(false)}
                   className={({ isActive }) =>
-                    `px-4 py-3 text-sm font-medium border-l-2 ${
-                      isActive
-                        ? "border-[#ff6b00] text-[#ff6b00] bg-white/[0.03]"
-                        : "border-transparent text-white/80"
+                    `px-4 py-3 text-sm font-medium border-l-2 ${isActive
+                      ? "border-[#ff6b00] text-[#ff6b00] bg-white/[0.03]"
+                      : "border-transparent text-white/80"
                     }`
                   }
                 >
@@ -182,7 +179,7 @@ export default function Navbar() {
                     </div>
                   </>
                 )}
-                {openMega === "industries" && (
+                {/* {openMega === "industries" && (
                   <>
                     {INDUSTRIES.slice(0, 6).map((ind) => (
                       <Link
@@ -200,7 +197,7 @@ export default function Navbar() {
                       </Link>
                     ))}
                   </>
-                )}
+                )} */}
               </div>
             </div>
           </motion.div>

@@ -94,10 +94,15 @@ export default function Footer() {
       <div className="border-t border-white/[0.06]">
         <div className="container-pad py-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-white/40">
           <div>© {new Date().getFullYear()} Lombodaran Packaging Pvt Ltd. All rights reserved.</div>
-          <div className="flex gap-6">
+          {/* <div className="flex gap-6">
             <span>Privacy</span>
             <span>Terms</span>
             <span>Compliance</span>
+          </div> */}
+          <div className="flex gap-2">
+            <span>Designed By :</span>
+            <span className="text-[#ff6b00]">Vertex Creative Studio</span>
+
           </div>
         </div>
       </div>

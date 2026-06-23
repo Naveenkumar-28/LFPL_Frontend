@@ -39,6 +39,7 @@ function Row({ reverse = false }) {
             >
               <span className="w-9 h-9 grid place-items-center bg-[#ff6b00]/10 text-[#ff6b00] border border-[#ff6b00]/20 shrink-0">
                 <Icon className="w-4 h-4" />
+                {/* <img className="h-full w-full" src="https://images.unsplash.com/photo-1607082352121-fa243f3dde32?auto=format&fit=crop&q=80&w=1400" alt="logo" /> */}
               </span>
               <span className="display text-base md:text-lg font-bold tracking-tight whitespace-nowrap text-white/85">
                 {c.name}
@@ -59,7 +60,7 @@ export default function ClientsMarquee() {
           <span className="w-8 h-px bg-[#ff6b00]" />
           Our Clients
         </div>
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-col justify-between gap-4">
           <h2 className="display text-4xl md:text-5xl font-bold leading-[1.05]">
             Trusted by <span className="text-[#ff6b00]">100+ brands</span> across India.
           </h2>

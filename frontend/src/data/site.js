@@ -16,14 +16,14 @@ export const SITE = {
 };
 
 export const STATS = [
-  { value: "8+", label: "Years Experience" },
-  { value: "500+", label: "Projects Delivered" },
-  { value: "100+", label: "Happy Clients" },
+  { value: "5+", label: "Years Experience" },
+  { value: "1000+", label: "Projects Delivered" },
+  { value: "500+", label: "Happy Clients" },
   { value: "Pan India", label: "Service Reach" },
 ];
 
 export const INFRA_STATS = [
-  { value: "50,000", suffix: "Sq Ft", label: "Factory Area" },
+  { value: "10,000", suffix: "Sq Ft", label: "Factory Area" },
   { value: "10+", label: "Production Machines" },
   { value: "24/7", label: "Production Cycle" },
   { value: "100%", label: "Quality Pass-rate" },
@@ -41,7 +41,7 @@ export const PROCESS_STEPS = [
 
 export const WHY_US = [
   { icon: "shield", title: "Quality Assurance", desc: "ISO 9001 compliant testing labs at every stage." },
-  { icon: "cog", title: "Advanced Technology", desc: "10-colour rotogravure & solvent-less lamination." },
+  { icon: "cog", title: "Advanced Technology", desc: "8-colour rotogravure & solvent-less lamination." },
   { icon: "edit", title: "Custom Packaging", desc: "Bespoke structures, finishes and dielines." },
   { icon: "truck", title: "Fast Delivery", desc: "On-time pan-India dispatch, every time." },
   { icon: "leaf", title: "Food Grade Materials", desc: "FSSAI, BIS and FDA compliant films." },
