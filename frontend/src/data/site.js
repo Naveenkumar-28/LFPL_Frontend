@@ -30,13 +30,13 @@ export const INFRA_STATS = [
 ];
 
 export const PROCESS_STEPS = [
-  { step: "01", title: "Consultation", desc: "Brief, brand discovery and structure decisions." },
-  { step: "02", title: "Design", desc: "Artwork, dielines and pre-press preparation." },
-  { step: "03", title: "Printing", desc: "High-resolution rotogravure printing." },
-  { step: "04", title: "Lamination", desc: "Multi-layer solvent-less lamination." },
-  { step: "05", title: "Pouch Making", desc: "Precision pouch making across formats." },
-  { step: "06", title: "Quality Check", desc: "Lab tested for barrier, seal and print." },
-  { step: "07", title: "Dispatch", desc: "Pan India dispatch with packing slips & COA." },
+  { step: "01", title: "Consultation", desc: "Brief, brand discovery and structure decisions.", icon: "Users" },
+  { step: "02", title: "Design", desc: "Artwork, dielines and pre-press preparation.", icon: "PenTool" },
+  { step: "03", title: "Printing", desc: "High-resolution rotogravure printing.", icon: "Printer" },
+  { step: "04", title: "Lamination", desc: "Multi-layer solvent-less lamination.", icon: "Layers" },
+  { step: "05", title: "Pouch Making", desc: "Precision pouch making across formats.", icon: "Package" },
+  { step: "06", title: "Quality Check", desc: "Lab tested for barrier, seal and print.", icon: "ShieldCheck" },
+  { step: "07", title: "Dispatch", desc: "Pan India dispatch with packing slips & COA.", icon: "Truck" },
 ];
 
 export const WHY_US = [
