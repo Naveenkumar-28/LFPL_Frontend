@@ -342,10 +342,10 @@ export default function Home() {
             <div className="relative pl-20">
               <div className="absolute left-8 top-10 bottom-10 w-[2px] border-l-2 border-dashed border-white/15" />
               <motion.div
-                initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, margin: "-100px" }}
+                initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 2, ease: "easeOut" }}
                 style={{ transformOrigin: "top" }}
-                className="absolute left-8 top-10 bottom-10 w-[2px] bg-gradient-to-r from-[#ff6b00] via-[#ff6b00]/60 to-[#ff6b00]/20"
+                className="absolute left-8 top-10 bottom-10 w-[2px] bg-gradient-to-b from-[#ff6b00] via-[#ff6b00]/60 to-[#ff6b00]/20"
               />
               {PROCESS_STEPS.map((p, i) => {
                 const Icon = PROCESS_ICONS[p.icon] || Sparkles;
